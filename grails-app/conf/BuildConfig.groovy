@@ -47,5 +47,8 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
+
+        test ":functional-test:2.0.M2"
+        test ":remote-control:1.2"
     }
 }
