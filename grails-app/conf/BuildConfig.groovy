@@ -37,6 +37,8 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
+        compile(":github-gist:0.1")
+
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
         runtime ":resources:1.1.6"
@@ -48,7 +50,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
-        test ":functional-test:2.0.M2"
+        test ":functional-test:1.3-RC1"
         test ":remote-control:1.2"
     }
 }
