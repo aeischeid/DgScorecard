@@ -11,10 +11,6 @@ class ErrorController {
 				response.status = 403
 				render ''
 			}
-			xml {
-				response.status = 403
-				render ''
-			}
 		}
 	}
 
@@ -27,10 +23,6 @@ class ErrorController {
 				response.status = 404
 				render ''
 			}
-			xml {
-				response.status = 404
-				render ''
-			}
 		}
 	}
 
@@ -40,10 +32,6 @@ class ErrorController {
 				render(view: "error")
 			}
 			json {
-				response.status = 404
-				render ''
-			}
-			xml {
 				response.status = 404
 				render ''
 			}
