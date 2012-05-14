@@ -1,3 +1,6 @@
+//import org.springframework.security.access.AccessDeniedException
+//import org.dg.*
+
 class UrlMappings {
 
 	static mappings = {
@@ -32,11 +35,13 @@ class UrlMappings {
 		// app seperate from grails app. or in this case the spine app is within
 		// the web-app dir of the grails app.
 		"/scorecard/"(uri:"/scorecard/public/index.html")
+		
+		"/"(view:"/index")
 
 		"403"(controller: "error", action: "error403")
 		"404"(controller: "error", action: "error404")
 		"500"(controller: "error", action: "error500")
-		"500"(controller: "error", action: "error403", exception: AccessDeniedException)
-		"500"(controller: "error", action: "error404", exception: NotFoundException)
+		//"500"(controller: "error", action: "error403", exception: AccessDeniedException)
+		//"500"(controller: "error", action: "error404", exception: NotFoundException)
 	}
 }
