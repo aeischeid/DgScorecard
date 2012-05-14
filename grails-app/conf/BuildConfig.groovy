@@ -34,6 +34,8 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         compile 'org.apache.poi:poi:3.8'
+
+        compile 'commons-httpclient:commons-httpclient:3.1'
     }
 
     plugins {
@@ -54,7 +56,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
-        test ":functional-test:2.0.M2"
+        test ":functional-test:1.3-RC1"
         test ":remote-control:1.2"
     }
 }
