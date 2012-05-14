@@ -39,7 +39,9 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":github-gist:0.1"
         compile ":spring-security-core:1.2.7.3"
-        //compile ":spring-security-openid:1.0.3"
+        compile (":spring-security-openid:1.0.3") {
+            excludes "commons-httpclient"
+        }
 
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
@@ -52,7 +54,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 
-        test ":functional-test:1.3-RC1"
+        test ":functional-test:2.0.M2"
         test ":remote-control:1.2"
     }
 }
