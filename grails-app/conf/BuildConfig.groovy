@@ -12,7 +12,7 @@ grails.project.dependency.resolution = {
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
 
     repositories {
@@ -37,7 +37,9 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile(":github-gist:0.1")
+        compile ":github-gist:0.1"
+        compile ":spring-security-core:1.2.7.3"
+        //compile ":spring-security-openid:1.0.3"
 
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
