@@ -1,5 +1,5 @@
 package org.dg
 
-class ScorecardController {
+class ScoreController {
     static scaffold = true
 }
