@@ -25,6 +25,15 @@ class ErrorController {
 			}
 		}
 	}
+	
+	def error409 = {
+		withFormat {
+			json {
+				response.status = 409
+				render ''
+			}
+		}
+	}
 
 	def error500 = { 
 		withFormat {
@@ -32,7 +41,7 @@ class ErrorController {
 				render(view: "error")
 			}
 			json {
-				response.status = 404
+				response.status = 500
 				render ''
 			}
 		}
