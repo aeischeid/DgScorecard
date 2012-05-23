@@ -1,22 +1,22 @@
 package org.dg
 
 class Scorecard {
-    Course course
+		CourseConfiguration courseConfiguration
 
-    static hasMany = [holeScores: HoleScore]
+		static hasMany = [players:User, holeScores: HoleScore]
 
-    static constraints = {
-    }
+		static constraints = {
+		}
 
-    static transients = ['totalScore']
-    
-    Integer getTotalScore() {
-        Integer totalScore = 0
-        
-        holeScores.each { holeScore ->
-            totalScore += holeScore.score
-        }
-        
-        return totalScore
-    }
+		static transients = ['totalScore']
+		
+		Integer getTotalScore() {
+			Integer totalScore = 0
+
+			holeScores.each { holeScore ->
+				totalScore += holeScore.score
+			}
+
+			return totalScore
+		}
 }

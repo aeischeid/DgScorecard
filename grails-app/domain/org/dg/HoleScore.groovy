@@ -1,9 +1,11 @@
 package org.dg
 
 class HoleScore {
-    Integer holeNumber
-    Integer score
+	Course course
+	CourseConfiguration courseConfiguration
+	Integer holeNumber
+	Integer score
 
-    static constraints = {
-    }
+	static constraints = {
+	}
 }
