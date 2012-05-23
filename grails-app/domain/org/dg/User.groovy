@@ -10,6 +10,8 @@ class User {
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
+    
+    //static hasMany = [openIds: OpenID]
 
     static constraints = {
         username blank: false, unique: true
