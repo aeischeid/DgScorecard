@@ -1,6 +1,8 @@
 package org.dg
 
-class Score {
+class Score implements Serializable {
+    private static final long serialVersionUID = 1L
+
     Integer score
     String notes
     Date date

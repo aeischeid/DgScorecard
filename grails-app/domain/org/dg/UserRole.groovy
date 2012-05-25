@@ -3,6 +3,7 @@ package org.dg
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UserRole implements Serializable {
+    private static final long serialVersionUID = 1L
 
     User user
     Role role

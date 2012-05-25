@@ -1,6 +1,8 @@
 package org.dg
 
-class Course {
+class Course implements Serializable {
+    private static final long serialVersionUID = 1L
+
     String name
     String description
     Integer holes
@@ -9,7 +11,7 @@ class Course {
     String streetAddress
     String city
     String state
-    Integer zipCode
+    String zipCode
     
     static hasMany = [scores:Score]
 
