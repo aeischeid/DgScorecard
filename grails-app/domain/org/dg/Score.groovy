@@ -1,11 +1,11 @@
 package org.dg
 
 class Score implements Serializable {
-    private static final long serialVersionUID = 1L
+    private static final long serialVersionUID = 2L
 
     Integer score
     String notes
-    Date date
+    Date date = new Date()
     
     static belongsTo = [player:User, course:Course]
 

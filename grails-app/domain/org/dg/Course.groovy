@@ -17,14 +17,14 @@ class Course implements Serializable {
 
     static constraints = {
         name()
-        description()
+        description(nullable: true)
         holes()
         par()
         
-        streetAddress()
-        city()
-        state()
-        zipCode()
+        streetAddress(nullable: true)
+        city(nullable: true)
+        state(nullable: true)
+        zipCode(nullable: true)
     }
     
     public String toString() {
