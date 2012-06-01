@@ -1,0 +1,6 @@
+<label for="courseSel">Course:</label>
+<select name="course.id" id="courseSel">
+	<option>choose...</option>
+</select>
+<label for="courseFilter">Filter:</label>
+<input type="text" id="courseFilter" />

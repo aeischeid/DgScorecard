@@ -7,10 +7,6 @@ Scorecard  = require('models/scorecard')
 Scorecards = require('controllers/scorecards')
 
 class App extends Spine.Controller
-	events:
-		'change #courseSel':'changeCourse'
-		'click .holeScore' :'enterHoleScore'
-	
 	elements:
 		'#courseInfo': 'courseSection'
 		'#scorecard' : 'scoreTable'
@@ -19,9 +15,12 @@ class App extends Spine.Controller
 		super
 		console.log('hey app is here')
 		# early on we can just get a list of all the courses... 
-		Course.fetch()
+		courseRequest = Course.fetch()
 		# probably should wait for this to return.
+		#$.when(courseRequest).done ->
+		#setTimeout( ->
 		courses = new Courses({el:@courseSection})
 		scorecard = new Scorecards({el:@scoreTable})
+		#, 600)
 
 module.exports = App
