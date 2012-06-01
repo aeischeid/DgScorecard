@@ -38,6 +38,7 @@ class LoginController {
 
     /**
      * Show the login page.
+     * @GET required params: none 
      */
     def auth = {
 
