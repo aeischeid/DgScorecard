@@ -16,6 +16,20 @@ class UserApiFunctionalTests extends JsonRestApiFunctionalTestCase {
         def json = parsedJsonSingleElement
 
         assert json['email'] == user1.email
+        assert json['id'] == user1.id
         assert json['username'] == user1.username
+    }
+
+    void testShouldSearchForUserByUsername() {
+        User user = userRemoteControl.findUser('user1')
+
+        doJsonGet("/api/user/search?query=${user.username}")
+
+        assertStatus(200)
+
+        def userJson = parsedJsonArray.find {it['id'] == user.id}
+        assert userJson
+
+        assert userJson['username'] == user.username
     }
 }

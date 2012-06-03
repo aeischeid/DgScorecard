@@ -1,6 +1,7 @@
 import org.dg.Course
 import org.dg.Score
 import org.dg.User
+import grails.converters.JSON
 
 class BootStrap {
 
@@ -13,6 +14,14 @@ class BootStrap {
         Score user1Course1Score = new Score(score: 55, course: course1, player: user1).save(failOnError: true)
         Score user1Course1InProgressScore = new Score(score: 56, course: course1, player: user1, inProgress: true, notes: "In progress score").save(failOnError: true)
         Score user1Course1FinishedScore = new Score(score: 56, course: course1, player: user1, inProgress: false, notes: "Finished score").save(failOnError: true)
+
+        JSON.registerObjectMarshaller(User) { User user ->
+            return [
+                    email    : user.email,
+                    id       : user.id,
+                    username : user.username
+            ]
+        }
     }
     def destroy = {
     }

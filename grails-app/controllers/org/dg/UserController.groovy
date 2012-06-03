@@ -9,14 +9,19 @@ class UserController {
         def currentUser = userService.currentUser
 
         if (currentUser) {
-            def userInfoMap = [
-                    'email': currentUser.email,
-                    'username': currentUser.username
-            ]
-
-            render userInfoMap as JSON
+            render currentUser as JSON
         } else {
             response.status = 404
         }
+    }
+
+    def search(String query) {
+        if (!query && params['term']) {
+            query = params['term']
+        }
+
+        def users = userService.search(query)
+
+        render users as JSON
     }
 }
