@@ -41,9 +41,9 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":github-gist:0.1"
         compile ":spring-security-core:1.2.7.3"
-        compile (":spring-security-openid:1.0.3") {
+        /*compile (":spring-security-openid:1.0.3") {
             excludes "commons-httpclient"
-        }
+        }*/
 
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
