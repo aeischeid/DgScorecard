@@ -6,9 +6,11 @@ class ScoreService {
     Score create(params) {
         Score score = new Score(params)
 
-        def currentUser = springSecurityService.currentUser
-
-        score.player = currentUser
+        if (params['playerName']) {
+            score.player = User.findByUsername(params['playerName'])
+        } else {
+            score.player = springSecurityService.currentUser
+        }
 
         score.save()
 

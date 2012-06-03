@@ -30,7 +30,7 @@ class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
     void testShouldCreateScoreForCurrentUser() {
         Course course = courseRemoteControl.findByName("Course 1")
 
-        Integer scoreVal = 12
+        Integer scoreVal = 54
         String scoreNotes = "My new score"
 
         String jsonString = new JSON(
@@ -44,6 +44,31 @@ class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
         assertStatus(201)
 
         def userScores = scoreRemoteControl.findScoresForPlayer('user1')
+
+        def newUserScore = userScores.find { it.notes == scoreNotes }
+        assert newUserScore
+
+        assert newUserScore.score == scoreVal
+    }
+
+    void testShouldCreateScoreForAnotherUser() {
+        Course course = courseRemoteControl.findByName("Course 1")
+
+        Integer scoreVal = 52
+        String scoreNotes = "User2 new score"
+
+        String jsonString = new JSON(
+                "course.id": course.id,
+                "notes": scoreNotes,
+                "playerName": 'user2',
+                "score": scoreVal
+        ).toString()
+
+        doJsonPost("/api/score", jsonString)
+
+        assertStatus(201)
+
+        def userScores = scoreRemoteControl.findScoresForPlayer('user2')
 
         def newUserScore = userScores.find { it.notes == scoreNotes }
         assert newUserScore
