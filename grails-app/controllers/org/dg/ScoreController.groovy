@@ -7,6 +7,19 @@ class ScoreController {
 
     def scoreService
 
+    def list() {
+        def scores = scoreService.findScoresForCurrentUser()
+
+        withFormat {
+            html {
+                render(view: "list", model: [scoreList: scores])
+            }
+            json {
+                render scores as JSON
+            }
+        }
+    }
+
     def save() {
         Score score = scoreService.create(params)
 

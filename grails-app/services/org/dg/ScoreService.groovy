@@ -22,4 +22,10 @@ class ScoreService {
 
         Score.findAllByPlayerAndInProgress(currentUser, true)
     }
+
+    List<Score> findScoresForCurrentUser() {
+        User currentUser = springSecurityService.currentUser
+
+        Score.findAllByPlayer(currentUser)
+    }
 }

@@ -84,4 +84,20 @@ class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
         assert inProgressScoreIds.contains(inProgressScore.id.toString())
         assert !inProgressScoreIds.contains(finishedScore.id.toString())
     }
+
+    void testShouldUpdateExistingScore() {
+        Score inProgressScore = scoreRemoteControl.findScoreForPlayer('user1', "In progress score")
+
+        Integer newScoreVal = 78
+
+        String jsonString = new JSON("score.id": inProgressScore.id, score: newScoreVal).toString()
+
+        doJsonPut("/api/score/${inProgressScore.id}", jsonString)
+
+        assertStatus(200)
+
+        Score updatedScore = scoreRemoteControl.findScoreForPlayer('user1', "In progress score")
+
+        assert updatedScore.score == newScoreVal
+    }
 }
