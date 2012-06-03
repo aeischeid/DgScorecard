@@ -34,4 +34,10 @@ class ScoreController {
             }
         }
     }
+
+    def inProgress() {
+        def inProgressScores = scoreService.findInProgressScores()
+
+        render inProgressScores as JSON
+    }
 }

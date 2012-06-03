@@ -11,6 +11,8 @@ class BootStrap {
         Course course1 = new Course(name: "Course 1", holes: 18, par: 54).save(failOnError: true)
 
         Score user1Course1Score = new Score(score: 55, course: course1, player: user1).save(failOnError: true)
+        Score user1Course1InProgressScore = new Score(score: 56, course: course1, player: user1, inProgress: true, notes: "In progress score").save(failOnError: true)
+        Score user1Course1FinishedScore = new Score(score: 56, course: course1, player: user1, inProgress: false, notes: "Finished score").save(failOnError: true)
     }
     def destroy = {
     }

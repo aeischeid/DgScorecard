@@ -4,6 +4,7 @@ import grails.converters.JSON
 import org.dg.Course
 import org.dg.remote.CourseRemoteControl
 import org.dg.remote.ScoreRemoteControl
+import org.dg.Score
 
 class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
     CourseRemoteControl courseRemoteControl = new CourseRemoteControl()
@@ -43,10 +44,7 @@ class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
 
         assertStatus(201)
 
-        def userScores = scoreRemoteControl.findScoresForPlayer('user1')
-
-        def newUserScore = userScores.find { it.notes == scoreNotes }
-        assert newUserScore
+        def newUserScore = scoreRemoteControl.findScoreForPlayer('user1', scoreNotes)
 
         assert newUserScore.score == scoreVal
     }
@@ -68,11 +66,22 @@ class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
 
         assertStatus(201)
 
-        def userScores = scoreRemoteControl.findScoresForPlayer('user2')
+        def newUserScore = scoreRemoteControl.findScoreForPlayer('user2', scoreNotes)
 
-        def newUserScore = userScores.find { it.notes == scoreNotes }
-        assert newUserScore
+        assert newUserScore?.score == scoreVal
+    }
 
-        assert newUserScore.score == scoreVal
+    void testShouldFindInProgressScoresForUser() {
+        Score inProgressScore = scoreRemoteControl.findScoreForPlayer('user1', "In progress score")
+        Score finishedScore = scoreRemoteControl.findScoreForPlayer('user1', "Finished score")
+
+        doJsonGet("/api/score/inProgress")
+
+        assertStatus(200)
+
+        def inProgressScoreIds = parsedJsonArray.collect { it['id'].toString() }
+
+        assert inProgressScoreIds.contains(inProgressScore.id.toString())
+        assert !inProgressScoreIds.contains(finishedScore.id.toString())
     }
 }
