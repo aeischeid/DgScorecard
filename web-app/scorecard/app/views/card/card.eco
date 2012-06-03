@@ -1,0 +1,16 @@
+<table>
+	<thead>
+		<tr>
+			<th rowspan="2">player</th>
+			<th colspan="9">scores</th>
+		</tr>
+		<tr>
+			<% for num in [@startHole..@endHole]: %>
+				<th><%= num %></th>
+			<% end %>
+		</tr>
+	</thead>
+	<tbody data-nine="<%= @nine %>">
+	</tbody>
+</table>
+
