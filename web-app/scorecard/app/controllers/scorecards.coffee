@@ -40,8 +40,10 @@ class Scorecards extends Spine.Controller
 			$('tbody[data-nine="'+nine+'"]').append require('views/card/playerRow')(player)
 		
 	enterHoleScore: (e)->
+		cell = $(e.target)
 		@log('enter a hole score')
-		@log("for hole number:" + $(e.target).data('holenum'))
+		@log("for hole number:" + cell.data('holenum'))
+		cell.html prompt("score")
 		
 
 module.exports = Scorecards
