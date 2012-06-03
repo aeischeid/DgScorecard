@@ -5,8 +5,8 @@ import org.dg.User
 class BootStrap {
 
     def init = { servletContext ->
-        User user1 = new User(username: "user1", password: "pass1", enabled: true).save()
-        User user2 = new User(username: "user2", password: "pass1", enabled: true).save()
+        User user1 = new User(username: "user1", password: "pass1", email: "user1@test.com", enabled: true).save()
+        User user2 = new User(username: "user2", password: "pass1", email: "user2@test.com", enabled: true).save()
 
         Course course1 = new Course(name: "Course 1", holes: 18, par: 54).save(failOnError: true)
 

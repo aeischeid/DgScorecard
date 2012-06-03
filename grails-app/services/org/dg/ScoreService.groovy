@@ -1,7 +1,7 @@
 package org.dg
 
 class ScoreService {
-    def springSecurityService
+    def userService
 
     Score create(params) {
         Score score = new Score(params)
@@ -9,7 +9,7 @@ class ScoreService {
         if (params['playerName']) {
             score.player = User.findByUsername(params['playerName'])
         } else {
-            score.player = springSecurityService.currentUser
+            score.player = userService.currentUser
         }
 
         score.save()
@@ -18,13 +18,13 @@ class ScoreService {
     }
 
     List<Score> findInProgressScores() {
-        User currentUser = springSecurityService.currentUser
+        User currentUser = userService.currentUser
 
         Score.findAllByPlayerAndInProgress(currentUser, true)
     }
 
     List<Score> findScoresForCurrentUser() {
-        User currentUser = springSecurityService.currentUser
+        User currentUser = userService.currentUser
 
         Score.findAllByPlayer(currentUser)
     }
