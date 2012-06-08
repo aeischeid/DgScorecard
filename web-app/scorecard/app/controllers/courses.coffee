@@ -1,5 +1,6 @@
 Spine  = require('spine')
 Course = require('models/course')
+Scorecards = require('controllers/scorecards')
 
 class Courses extends Spine.Controller
 	events:
@@ -26,6 +27,7 @@ class Courses extends Spine.Controller
 	changeCourse: ->
 		@log('change it!')
 		@item = Course.find(@courseSel.val())
+		Scorecards.setCourse(@courseSel.val())
 		@log("to #{@item.name}")
 		#@render
 

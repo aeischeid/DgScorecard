@@ -1,4 +1,6 @@
-Spine = require('spine')
+Spine  = require('spine')
+Scorecard  = require('models/scorecard')
+Course = require('models/course')
 
 class Scorecards extends Spine.Controller
 	events:
@@ -7,7 +9,7 @@ class Scorecards extends Spine.Controller
 	constructor: ->
 		super
 		@course = {holes:18, par:56}
-		@players = [{name:'tommy'},{name:'aaron'},{name:'craig'}]
+		@players = [{name:'golfer1'},{name:'golfer2'},{name:'golfer3'}]
 		@render()
 		
 	render: ->
@@ -41,9 +43,11 @@ class Scorecards extends Spine.Controller
 		
 	enterHoleScore: (e)->
 		cell = $(e.target)
-		@log('enter a hole score')
-		@log("for hole number:" + cell.data('holenum'))
+		@log("enter a score for hole number:" + cell.data('holenum'))
 		cell.html prompt("score")
-		
+	
+	@setCourse: (id)->
+		@course = Course.find(id)
+		@render()
 
 module.exports = Scorecards
