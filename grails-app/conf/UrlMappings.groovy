@@ -29,7 +29,7 @@ class UrlMappings {
 		// the web-app dir of the grails app.
 		"/scorecard/"(uri:"/scorecard/public/index.html")
 		
-		"/"(view:"/index")
+		"/"(controller: "index", action: "index")
 
 		"403"(controller: "error", action: "error403")
 		"404"(controller: "error", action: "error404")

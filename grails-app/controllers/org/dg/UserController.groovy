@@ -1,7 +1,9 @@
 package org.dg
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+@Secured('isAuthenticated()')
 class UserController {
     def userService
 

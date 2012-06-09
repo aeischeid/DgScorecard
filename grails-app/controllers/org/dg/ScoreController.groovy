@@ -1,5 +1,8 @@
 package org.dg
 
+import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
+
 /**
  * Access layer to Score resource/domain
  *
@@ -29,6 +32,7 @@ package org.dg
  * <p> Posible Responses: 400, 403, 404, 200
  */
 
+@Secured('isAuthenticated()')
 class ScoreController {
     static scaffold = true
 
