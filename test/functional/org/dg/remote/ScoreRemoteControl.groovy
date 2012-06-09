@@ -18,4 +18,16 @@ class ScoreRemoteControl {
             }
         }
     }
+
+    Score findScoreForPlayer(String username, String notes) {
+        remote {
+            User player = User.findByUsername(username)
+
+            if (player) {
+                Score.findByPlayerAndNotes(player, notes)
+            } else {
+                null
+            }
+        }
+    }
 }

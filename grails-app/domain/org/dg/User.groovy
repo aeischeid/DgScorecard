@@ -1,10 +1,11 @@
 package org.dg
 
 class User implements Serializable {
-    private static final long serialVersionUID = 1L
+    private static final long serialVersionUID = 2L
 
     transient springSecurityService
 
+    String email
     String username
     String password
     boolean enabled

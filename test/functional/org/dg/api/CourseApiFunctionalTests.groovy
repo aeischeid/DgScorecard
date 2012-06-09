@@ -58,4 +58,32 @@ class CourseApiFunctionalTests extends JsonRestApiFunctionalTestCase {
         assert newCourse.state == state
         assert newCourse.zipCode == zipCode
     }
+
+    void testShouldListAllCourses() {
+        def allCourses = courseRemoteControl.list()
+
+        doJsonGet("/api/course")
+
+        assertStatus(200)
+
+        def json = parsedJsonArray
+
+        assert json.size() == allCourses.size()
+
+        def allCourseIds = allCourses.collect { it.id.toString() }
+
+        json.each {
+            assert allCourseIds.contains(it['id'].toString())
+        }
+    }
+
+    void testShouldGetInfoForSpecificCourse() {
+        Course course = courseRemoteControl.findByName("Course 1")
+
+        doJsonGet("/api/course/${course.id}")
+
+        assertStatus(200)
+
+        assert parsedJsonSingleElement['id'].toString() == course.id.toString()
+    }
 }

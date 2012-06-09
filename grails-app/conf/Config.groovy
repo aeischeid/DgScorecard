@@ -96,3 +96,12 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.dg.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.dg.UserRole'
 grails.plugins.springsecurity.authority.className = 'org.dg.Role'
+
+//Enable Basic Auth Filter
+grails.plugins.springsecurity.useBasicAuth = true
+grails.plugins.springsecurity.basic.realmName = "DgScorecard"
+//Exclude normal controllers from basic auth filter. Just the JSON API is included
+grails.plugins.springsecurity.filterChain.chainMap = [
+        '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter',
+        '/**': 'JOINED_FILTERS,-basicAuthenticationFilter,-basicExceptionTranslationFilter'
+]

@@ -8,13 +8,7 @@ class UrlMappings {
 			// apply constraints here
 			}
 		}
-		"/events/$className/$id"{
-			controller = "events"
-			action = "show"
-			constraints {
-				// apply constraints here
-			}
-		}
+
 		name api0: "/api/$controller/$id"(parseRequest:true){
 			action = [GET: "show", PUT: "update", DELETE: "delete"]
 			constraints {
