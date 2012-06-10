@@ -4,6 +4,7 @@ Scorecard  = require('models/scorecard')
 class Scorecards extends Spine.Controller
 	events:
 		'click .holeScore' :'enterHoleScore'
+		'click button'     :'submitScore'
 	
 	constructor: ->
 		super
@@ -51,8 +52,14 @@ class Scorecards extends Spine.Controller
 		
 	enterHoleScore: (e)->
 		cell = $(e.target)
-		@log("enter a score for hole number:" + cell.data('holenum'))
-		cell.html prompt("score", '3')
+		#find the player row this cell belongs to
+		#@log("enter a score for hole number:" + cell.data('holenum'))
+		holeScore = prompt("score", '3')
+		cell.html holeScore
+		#add hole score to the tally for given player
+		
+	submitScore: (e)->
+		@log 'time to get serious'
 	
 	resetCourse: (courseObj)->
 		@course = courseObj

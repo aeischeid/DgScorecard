@@ -1,5 +1,5 @@
 <tr>
-	<td><%= @name %></td>
+	<td><a href="#" class='editPlayer'><%= @name %></a> <a href="#" class='removePlayer'>-</a></td>
 	<td class="scoreTally"></td>
 	<td><button>submit</button></td>
 </tr>
