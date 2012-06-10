@@ -36,6 +36,10 @@ grails.project.dependency.resolution = {
         compile 'org.apache.poi:poi:3.8'
 
         compile 'commons-httpclient:commons-httpclient:3.1'
+
+        test ('org.gmock:gmock:0.8.2') {
+            excludes 'junit'
+        }
     }
 
     plugins {
