@@ -15,6 +15,8 @@ class BootStrap {
         Score user1Course1InProgressScore = new Score(score: 56, course: course1, player: user1, inProgress: true, notes: "In progress score").save(failOnError: true)
         Score user1Course1FinishedScore = new Score(score: 56, course: course1, player: user1, inProgress: false, notes: "Finished score").save(failOnError: true)
 
+        Score user2Course1Score = new Score(score: 56, course: course1, player: user2, notes: "user2Course1Score").save(failOnError: true)
+
         JSON.registerObjectMarshaller(User) { User user ->
             return [
                     email    : user.email,
