@@ -11,7 +11,6 @@ class App extends Spine.Controller
 	
 	constructor: ->
 		super
-		console.log('app is alive i guess!?')
 		# early on we can just get a list of all the courses... 
 		courseRequest = Course.fetch()
 		# probably should wait for this to return.
