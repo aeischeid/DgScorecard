@@ -3,6 +3,7 @@ Course = require('models/course')
 Scorecards = require('controllers/scorecards')
 
 class Courses extends Spine.Controller
+	@item = {}
 	events:
 		'change #courseSel':'changeCourse'
 	
@@ -14,6 +15,7 @@ class Courses extends Spine.Controller
 		super
 		@html require('views/course/selector')
 		Course.bind 'refresh', @list
+		@scorecard = new Scorecards({el:$("#scorecard")})
 		
 	list: (filter)->
 		#if filter
@@ -25,10 +27,8 @@ class Courses extends Spine.Controller
 		@html.append require('views/course/show')(@item)
 	
 	changeCourse: ->
-		@log('change it!')
 		@item = Course.find(@courseSel.val())
-		Scorecards.setCourse(@courseSel.val())
-		@log("to #{@item.name}")
+		Spine.trigger('changeCourse', @item)
 		#@render
 
 module.exports = Courses

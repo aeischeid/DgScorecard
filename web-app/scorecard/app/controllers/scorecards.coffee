@@ -10,10 +10,13 @@ class Scorecards extends Spine.Controller
 		super
 		@course = {holes:18, par:56}
 		@players = [{name:'golfer1'},{name:'golfer2'},{name:'golfer3'}]
+		Spine.bind 'changeCourse', (courseObj) =>
+			@resetCourse(courseObj)
 		@render()
 		
 	render: ->
 		#@html require('views/card/card')(@course)
+		@log @course
 		# detrmine nines (as in how many 9's, since most courses will be played in holes by a factor of nine)
 		#always render the first nine
 		@renderNine(1)
@@ -44,10 +47,13 @@ class Scorecards extends Spine.Controller
 	enterHoleScore: (e)->
 		cell = $(e.target)
 		@log("enter a score for hole number:" + cell.data('holenum'))
-		cell.html prompt("score")
+		cell.html prompt("score", '3')
 	
-	@setCourse: (id)->
-		@course = Course.find(id)
-		@render()
+	resetCourse: (courseObj)->
+		@course = courseObj
+		if confirm('abandon current game and any unsaved scores?')
+			@html ''
+			@render()
 
 module.exports = Scorecards
+
