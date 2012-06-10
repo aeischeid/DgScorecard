@@ -1,9 +1,9 @@
 <table id="tallies">
 	<thead>
 		<tr>
-			<th>player <a href="#" class='addPlayer'>+</a></th>
-			<th>total</th>
-			<th></th>
+			<th>player (<a href="#" class='addPlayer'> add </a>)</th>
+			<th>total (throws/par)</th>
+			<th>upload</th>
 		</tr>
 	</thead>
 	<tbody></tbody>

@@ -1,6 +1,6 @@
 <tr>
-	<td><a href="#" class='editPlayer'><%= @name %></a> <a href="#" class='removePlayer'>-</a></td>
-	<td class="scoreTally"></td>
+	<td><a href="#" class='editPlayer'><%= @name %></a> (<a href="#" class='removePlayer'> remove </a>)</td>
+	<td class="scoreTally"><form></form></td>
 	<td><button>submit</button></td>
 </tr>
 
