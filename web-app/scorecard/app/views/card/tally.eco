@@ -1,0 +1,12 @@
+<table id="tallies">
+	<thead>
+		<tr>
+			<th>players</th>
+			<th>total</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+
+

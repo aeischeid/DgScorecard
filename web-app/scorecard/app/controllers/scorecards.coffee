@@ -1,6 +1,5 @@
 Spine  = require('spine')
 Scorecard  = require('models/scorecard')
-Course = require('models/course')
 
 class Scorecards extends Spine.Controller
 	events:
@@ -23,6 +22,7 @@ class Scorecards extends Spine.Controller
 		#second 9 is a maybe
 		if @course.holes > 9
 			@renderNine(2)
+		@renderTally()
 		
 	renderNine: (n)->
 		switch n
@@ -43,6 +43,11 @@ class Scorecards extends Spine.Controller
 			player.startHole = startHole
 			player.endHole = endHole
 			$('tbody[data-nine="'+nine+'"]').append require('views/card/playerRow')(player)
+	
+	renderTally: ->
+		@el.append require('views/card/tally')
+		for player in @players
+			$('#tallies tbody').append require('views/card/tallyRow')(player)
 		
 	enterHoleScore: (e)->
 		cell = $(e.target)
@@ -51,7 +56,7 @@ class Scorecards extends Spine.Controller
 	
 	resetCourse: (courseObj)->
 		@course = courseObj
-		if confirm('abandon current game and any unsaved scores?')
+		if confirm('abandon current game and unsaved scores?')
 			@html ''
 			@render()
 
