@@ -1,16 +1,17 @@
+import org.springframework.security.core.context.SecurityContextHolder as SCH
+
 import grails.converters.JSON
+import org.apache.commons.lang.RandomStringUtils
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import org.codehaus.groovy.grails.plugins.springsecurity.openid.OpenIdAuthenticationFailureHandler
+import org.dg.User
+import org.springframework.security.web.WebAttributes
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.savedrequest.DefaultSavedRequest
 
 import javax.servlet.http.HttpServletResponse
 
-import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-
-import org.springframework.security.authentication.AccountExpiredException
-import org.springframework.security.authentication.CredentialsExpiredException
-import org.springframework.security.authentication.DisabledException
-import org.springframework.security.authentication.LockedException
-import org.springframework.security.core.context.SecurityContextHolder as SCH
-import org.springframework.security.web.WebAttributes
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.authentication.*
 
 class LoginController {
 
@@ -24,6 +25,8 @@ class LoginController {
      */
     def springSecurityService
 
+    def openIDService
+
     /**
      * Default action; redirects to 'defaultTargetUrl' if logged in, /login/auth otherwise.
      */
@@ -34,6 +37,12 @@ class LoginController {
         else {
             redirect action: 'auth', params: params
         }
+    }
+
+    def loginGoogle() {
+        String openIdCheckUri = "${request.contextPath}/j_spring_openid_security_check?openid_identifier=https://www.google.com/accounts/o8/id"
+
+        redirect(uri: openIdCheckUri)
     }
 
     /**
@@ -131,5 +140,42 @@ class LoginController {
      */
     def ajaxDenied = {
         render([error: 'access denied'] as JSON)
+    }
+
+    def openIdCreateAccount() {
+        def config = SpringSecurityUtils.securityConfig
+
+        String openId = session[OpenIdAuthenticationFailureHandler.LAST_OPENID_USERNAME]
+        if (!openId) {
+            flash.error = 'Sorry, an OpenID was not found'
+            redirect uri: config.failureHandler.defaultFailureUrl
+            return
+        }
+
+        def email = openIDService.getEmailAddress(session)
+
+        def user = User.findByEmail(email)
+
+        if (!user) {
+            user = new User(email: email)
+        }
+
+        user.username = email
+        user.password = RandomStringUtils.randomAlphanumeric(8)
+
+        user.save()
+
+        springSecurityService.reauthenticate(user.username)
+
+        session.removeAttribute OpenIdAuthenticationFailureHandler.LAST_OPENID_USERNAME
+        session.removeAttribute OpenIdAuthenticationFailureHandler.LAST_OPENID_ATTRIBUTES
+
+        def savedRequest = session[DefaultSavedRequest.SPRING_SECURITY_SAVED_REQUEST_KEY]
+        if (savedRequest && !config.successHandler.alwaysUseDefault) {
+            redirect url: savedRequest.redirectUrl
+        }
+        else {
+            redirect uri: config.successHandler.defaultTargetUrl
+        }
     }
 }

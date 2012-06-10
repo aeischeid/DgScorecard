@@ -1,7 +1,7 @@
 package org.dg
 
 class User implements Serializable {
-    private static final long serialVersionUID = 2L
+    private static final long serialVersionUID = 3L
 
     transient springSecurityService
 
@@ -12,8 +12,8 @@ class User implements Serializable {
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
-    
-    //static hasMany = [openIds: OpenID]
+
+    static hasMany = [openIds: OpenID]
 
     static constraints = {
         username blank: false, unique: true

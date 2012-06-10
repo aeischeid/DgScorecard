@@ -111,6 +111,7 @@
 
 			<p>
 				<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
+                <g:link controller="login" action="loginGoogle">Login with Google</g:link>
 			</p>
 		</form>
 	</div>

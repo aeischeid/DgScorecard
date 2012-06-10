@@ -96,6 +96,7 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.dg.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.dg.UserRole'
 grails.plugins.springsecurity.authority.className = 'org.dg.Role'
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/scorecard/'
 
 //Enable Basic Auth Filter
 grails.plugins.springsecurity.useBasicAuth = true
@@ -104,4 +105,11 @@ grails.plugins.springsecurity.basic.realmName = "DgScorecard"
 grails.plugins.springsecurity.filterChain.chainMap = [
         '/api/**': 'JOINED_FILTERS,-exceptionTranslationFilter',
         '/**': 'JOINED_FILTERS,-basicAuthenticationFilter,-basicExceptionTranslationFilter'
+]
+
+grails.plugins.springsecurity.openid.domainClass = 'org.dg.OpenID'
+grails.plugins.springsecurity.openid.registration.requiredAttributes=[
+        email: 'http://schema.openid.net/contact/email',
+        /*firstName: 'http://axschema.org/namePerson/first',
+        lastName: 'http://axschema.org/namePerson/last'*/
 ]
