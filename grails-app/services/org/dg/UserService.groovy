@@ -1,5 +1,7 @@
 package org.dg
 
+import org.apache.commons.lang.RandomStringUtils
+
 class UserService {
     def springSecurityService
 
@@ -23,5 +25,18 @@ class UserService {
         }
 
         return users
+    }
+
+    User createInactiveUser(String email) {
+        User user = new User(
+                email: email,
+                enabled: false,
+                password: RandomStringUtils.randomAlphanumeric(8),
+                username: email
+        )
+
+        user.save()
+
+        return user
     }
 }

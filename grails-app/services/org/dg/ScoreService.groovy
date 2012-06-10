@@ -6,8 +6,16 @@ class ScoreService {
     Score create(params) {
         Score score = new Score(params)
 
-        if (params['playerName']) {
-            score.player = User.findByUsername(params['playerName'])
+        String otherPlayerEmail = params['playerEmail']
+
+        if (otherPlayerEmail) {
+            User otherPlayer = User.findByEmail(otherPlayerEmail)
+
+            if (!otherPlayer) {
+                otherPlayer = userService.createInactiveUser(otherPlayerEmail)
+            }
+
+            score.player = otherPlayer
         } else {
             score.player = userService.currentUser
         }
