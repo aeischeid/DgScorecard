@@ -1,4 +1,4 @@
-<tr>
+<tr data-player="<%= @name %>">
 	<td><%= @name %></td>
 	<% for num in [@startHole..@endHole]: %>
 		<td class="holeScore" data-holenum="<%= num %>"></td>

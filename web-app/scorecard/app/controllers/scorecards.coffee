@@ -3,8 +3,11 @@ Scorecard  = require('models/scorecard')
 
 class Scorecards extends Spine.Controller
 	events:
-		'click .holeScore' :'enterHoleScore'
-		'click button'     :'submitScore'
+		'click .holeScore'   :'enterHoleScore'
+		'click button'       :'submitScore'
+		'click #addPlayer'   :'addPlayer'
+		'click .editPlayer'  :'editPlayer'
+		'click .removePlayer':'removePlayer'
 	
 	constructor: ->
 		super
@@ -53,6 +56,7 @@ class Scorecards extends Spine.Controller
 	enterHoleScore: (e)->
 		cell = $(e.target)
 		#find the player row this cell belongs to
+		@log cell.parent().data('player')
 		#@log("enter a score for hole number:" + cell.data('holenum'))
 		holeScore = prompt("score", '3')
 		cell.html holeScore
@@ -66,6 +70,18 @@ class Scorecards extends Spine.Controller
 		if confirm('abandon current game and unsaved scores?')
 			@html ''
 			@render()
+		
+	addPlayer: (e)->
+		e.preventDefault()
+		@players.push({name:prompt('google id', '@gmail.com')})
+		
+	editPlayer: (e)->
+		e.preventDefault()
+		@log $(e.target).parent().data('player')
+		
+	removePlayer: (e)->
+		e.preventDefault()
+		@log 'remove time'
 
 module.exports = Scorecards
 

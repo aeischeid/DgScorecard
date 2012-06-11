@@ -1,7 +1,7 @@
 <table id="tallies">
 	<thead>
 		<tr>
-			<th>Player (<a href="#" class='addPlayer'> add </a>)</th>
+			<th>Player (<a href="#" id='addPlayer'> add </a>)</th>
 			<th>Score</th>
 			<th>Notes</th>
 			<th>Upload</th>

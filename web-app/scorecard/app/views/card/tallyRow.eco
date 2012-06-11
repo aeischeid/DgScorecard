@@ -1,4 +1,4 @@
-<tr>
+<tr data-player="<%= @name %>">
 	<td><a href="#" class='editPlayer'><%= @name %></a> (<a href="#" class='removePlayer'> remove </a>)</td>
 	<td class="scoreTally"><input type="number" name="score" value="0"/></td>
 	<td class="notes"><input type="text" name="notes"/></td>
