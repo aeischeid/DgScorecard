@@ -160,6 +160,7 @@ class LoginController {
             user = new User(email: email)
         }
 
+        user.enabled = true
         user.username = email
         user.password = RandomStringUtils.randomAlphanumeric(8)
 

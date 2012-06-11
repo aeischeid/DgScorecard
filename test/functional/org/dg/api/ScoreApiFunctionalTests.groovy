@@ -58,7 +58,7 @@ class ScoreApiFunctionalTests extends JsonRestApiFunctionalTestCase {
         String jsonString = new JSON(
                 "course.id": course.id,
                 "notes": scoreNotes,
-                "playerName": 'user2',
+                "playerEmail": "user2@test.com",
                 "score": scoreVal
         ).toString()
 

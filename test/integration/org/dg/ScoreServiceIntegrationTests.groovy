@@ -36,6 +36,34 @@ class ScoreServiceIntegrationTests extends DgScoreIntegrationTestCase {
     }
 
     @Test
+    void whenScoreForOtherExistingUserShouldCreateScore() {
+        User user2 = User.findByUsername('user2')
+
+        def params = [score: 52, notes: "New score for user 2", 'course.id': course.id, playerEmail: user2.email]
+
+        def newScore = scoreService.create(params)
+        assert !newScore.errors?.allErrors
+
+        assert newScore.player == user2
+    }
+
+    @Test
+    void whenScoreForOtherUserThatDoesNotExistYetShouldCreateScoreAndUser() {
+        String otherUserEmail = "otheruser@dg.org"
+
+        def params = [score: 52, notes: "New score for other user", 'course.id': course.id, playerEmail: otherUserEmail]
+
+        def newScore = scoreService.create(params)
+        assert !newScore.errors?.allErrors
+
+        User newUser = User.findByEmail(otherUserEmail)
+        assert newUser
+        assert !newUser.enabled
+
+        assert newScore.player == newUser
+    }
+
+    @Test
     void shouldFindInProgressScores() {
         def inProgressScores = scoreService.findInProgressScores()
 
