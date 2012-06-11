@@ -1,8 +1,8 @@
 <table>
 	<thead>
 		<tr>
-			<th rowspan="2">player</th>
-			<th colspan="9">scores</th>
+			<th rowspan="2">Player</th>
+			<th colspan="9">Scores</th>
 		</tr>
 		<tr>
 			<% for num in [@startHole..@endHole]: %>
