@@ -6,7 +6,8 @@ class Course extends Spine.Model
 	
 	@url: '../api/course'
 	
-	#@filter: (zip)->
-		
+	#@filter: (query)->
+		#@select (c) -> 
+			#c.zip.indexOf(query) is not -1
 
 module.exports = Course
