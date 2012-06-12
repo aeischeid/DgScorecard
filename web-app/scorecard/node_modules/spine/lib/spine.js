@@ -97,7 +97,7 @@
     Module.include = function(obj) {
       var key, value, _ref;
       if (!obj) {
-        throw 'include(obj) requires obj';
+        throw new Error('include(obj) requires obj');
       }
       for (key in obj) {
         value = obj[key];
@@ -114,7 +114,7 @@
     Module.extend = function(obj) {
       var key, value, _ref;
       if (!obj) {
-        throw 'extend(obj) requires obj';
+        throw new Error('extend(obj) requires obj');
       }
       for (key in obj) {
         value = obj[key];
@@ -190,7 +190,7 @@
         return this.findCID(id);
       }
       if (!record) {
-        throw 'Unknown record';
+        throw new Error('Unknown record');
       }
       return record.clone();
     };
@@ -199,7 +199,7 @@
       var record;
       record = this.crecords[cid];
       if (!record) {
-        throw 'Unknown record';
+        throw new Error('Unknown record');
       }
       return record.clone();
     };
@@ -407,10 +407,15 @@
     Model.idCounter = 0;
 
     Model.uid = function(prefix) {
+      var uid;
       if (prefix == null) {
         prefix = '';
       }
-      return prefix + this.idCounter++;
+      uid = prefix + this.idCounter++;
+      if (this.exists(uid)) {
+        uid = this.uid(prefix);
+      }
+      return uid;
     };
 
     function Model(atts) {
@@ -660,6 +665,7 @@
         this.el = document.createElement(this.tag);
       }
       this.el = $(this.el);
+      this.$el = this.el;
       if (this.className) {
         this.el.addClass(this.className);
       }
@@ -705,6 +711,9 @@
             };
           })(method);
         } else {
+          if (!this[method]) {
+            throw new Error("" + method + " doesn't exist");
+          }
           method = (function(method) {
             return function() {
               _this[method].apply(_this, arguments);
@@ -834,7 +843,7 @@
     module.exports = Spine;
   }
 
-  Spine.version = '1.0.6';
+  Spine.version = '1.0.8';
 
   Spine.isArray = isArray;
 
