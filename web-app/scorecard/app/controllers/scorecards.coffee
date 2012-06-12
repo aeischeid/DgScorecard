@@ -1,5 +1,6 @@
-Spine  = require('spine')
+Spine      = require('spine')
 Scorecard  = require('models/scorecard')
+Player     = require('models/player')
 
 class Scorecards extends Spine.Controller
 	events:
@@ -11,8 +12,8 @@ class Scorecards extends Spine.Controller
 	
 	constructor: ->
 		super
+		Player.fetch()
 		@course = {holes:18, par:56}
-		@players = [{name:'golfer1'},{name:'golfer2'},{name:'golfer3'}]
 		Spine.bind 'changeCourse', (courseObj) =>
 			@resetCourse(courseObj)
 		@render()
@@ -26,6 +27,8 @@ class Scorecards extends Spine.Controller
 		#second 9 is a maybe
 		if @course.holes > 9
 			@renderNine(2)
+		if @course.holes > 18
+			@renderNine(3)
 		@renderTally()
 		
 	renderNine: (n)->
@@ -43,27 +46,42 @@ class Scorecards extends Spine.Controller
 		@renderRow(n, startHole, endHole)
 		
 	renderRow: (nine, startHole, endHole)->
-		for player in @players
+		for player in Player.all()
 			player.startHole = startHole
 			player.endHole = endHole
 			$('tbody[data-nine="'+nine+'"]').append require('views/card/playerRow')(player)
 	
 	renderTally: ->
 		@el.append require('views/card/tally')
-		for player in @players
+		for player in Player.all()
 			$('#tallies tbody').append require('views/card/tallyRow')(player)
+			@calcScoreTally(player)
 		
 	enterHoleScore: (e)->
 		cell = $(e.target)
-		#find the player row this cell belongs to
-		@log cell.parent().data('player')
+		holeNum = cell.data('hole')
+		#find the player this row belongs to
+		playerId = cell.parent().data('player')
+		player = Player.find(playerId)
 		#@log("enter a score for hole number:" + cell.data('holenum'))
 		holeScore = prompt("score", '3')
 		cell.html holeScore
-		#add hole score to the tally for given player
+		player.scores[holeNum] = parseInt(holeScore, 10)
+		player.save()
+		@calcScoreTally(player)
+		
+	calcScoreTally: (player)->
+		tally = 0
+		for hole,holeScore of player.scores
+			tally += holeScore
+		#use jquery to select tally row, find the score input, and inject tally as value
+		@$("tr[data-player='#{player.id}'] input[name='score']").val(tally)
 		
 	submitScore: (e)->
 		@log 'time to get serious'
+		for player in Player.all()
+			scorecard = new Scorecard(playerName:player.name, score:3, courseId:1, notes:'not real...')
+			console.log scorecard
 	
 	resetCourse: (courseObj)->
 		@course = courseObj
@@ -73,7 +91,10 @@ class Scorecards extends Spine.Controller
 		
 	addPlayer: (e)->
 		e.preventDefault()
-		@players.push({name:prompt('google id', '@gmail.com')})
+		newPlayer = new Player(name:prompt('google id', '@gmail.com'), scores:{})
+		newPlayer.save()
+		@log Player.all()
+		#need to trigger a re-render w/out losing all scores...
 		
 	editPlayer: (e)->
 		e.preventDefault()

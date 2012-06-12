@@ -1,6 +1,6 @@
-<tr data-player="<%= @name %>">
+<tr data-player="<%= @id %>">
 	<td><%= @name %></td>
 	<% for num in [@startHole..@endHole]: %>
-		<td class="holeScore" data-holenum="<%= num %>"></td>
+		<td class="holeScore" data-hole="<%= num %>"><%= @scores?[num] %></td>
 	<% end %>
 </tr>
