@@ -93,12 +93,16 @@ class Scorecards extends Spine.Controller
 		e.preventDefault()
 		newPlayer = new Player(name:prompt('google id', '@gmail.com'), scores:{})
 		newPlayer.save()
-		@log Player.all()
 		#need to trigger a re-render w/out losing all scores...
 		
 	editPlayer: (e)->
 		e.preventDefault()
-		@log $(e.target).parent().data('player')
+		#@log $(e.target).parent().parent()
+		playerId = $(e.target).parent().parent().data('player')
+		player = Player.find(playerId)
+		player.name = prompt('google id', player.name)
+		player.save()
+		#@log player
 		
 	removePlayer: (e)->
 		e.preventDefault()
