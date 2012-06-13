@@ -19,4 +19,8 @@ class Score implements Serializable {
     static constraints = {
         notes nullable:true
     }
+    
+    public String toString() {
+        "${score}, ${player}"
+    }
 }
