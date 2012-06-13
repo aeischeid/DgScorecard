@@ -37,6 +37,8 @@ grails.project.dependency.resolution = {
 
         compile 'commons-httpclient:commons-httpclient:3.1'
 
+        runtime 'postgresql:postgresql:8.4-702.jdbc3'
+
         test ('org.gmock:gmock:0.8.2') {
             excludes 'junit'
         }
@@ -62,5 +64,11 @@ grails.project.dependency.resolution = {
 
         test ":functional-test:1.3-RC1"
         test ":remote-control:1.2"
+
+        compile(':heroku:1.0.1') {
+            exclude 'database-session'
+        }
+        compile ':cloud-support:1.0.8'
+        compile ':webxml:1.4.1'
     }
 }

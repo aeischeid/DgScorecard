@@ -98,6 +98,10 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.dg.UserRo
 grails.plugins.springsecurity.authority.className = 'org.dg.Role'
 grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/scorecard/'
 
+// Workaround for Heroku load balancer issue
+// see: http://grails-plugins.github.com/grails-heroku/docs/manual/guide/2%20Usage.html
+grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+
 //Enable Basic Auth Filter
 grails.plugins.springsecurity.useBasicAuth = true
 grails.plugins.springsecurity.basic.realmName = "DgScorecard"
