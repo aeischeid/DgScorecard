@@ -13,10 +13,8 @@ class Scorecards extends Spine.Controller
 	constructor: ->
 		super
 		Player.fetch()
-		@course = {holes:18, par:56}
 		Spine.bind 'changeCourse', (courseObj) =>
 			@resetCourse(courseObj)
-		@render()
 		
 	render: ->
 		#@html require('views/card/card')(@course)
@@ -64,7 +62,7 @@ class Scorecards extends Spine.Controller
 		playerId = cell.parent().data('player')
 		player = Player.find(playerId)
 		#@log("enter a score for hole number:" + cell.data('holenum'))
-		holeScore = prompt("score", '3')
+		holeScore = prompt("score", '0')
 		cell.html holeScore
 		player.scores[holeNum] = parseInt(holeScore, 10)
 		player.save()
@@ -78,16 +76,41 @@ class Scorecards extends Spine.Controller
 		@$("tr[data-player='#{player.id}'] input[name='score']").val(tally)
 		
 	submitScore: (e)->
-		@log 'time to get serious'
-		for player in Player.all()
-			scorecard = new Scorecard(playerName:player.name, score:3, courseId:1, notes:'not real...')
-			console.log scorecard
+		e.preventDefault()
+		button = $(e.target)
+		row = button.parent().parent() # <tr><td><button></button></td></tr>
+		playerId = row.data('player')
+		player = Player.find(playerId)
+		inputScore = row.find("input[name='score']")
+		scoreVal = inputScore.val()
+		inputNotes = row.find("input[name='notes']")
+		notesVal = inputNotes.val()
+		if confirm ("#{player.name} \n score: #{scoreVal} \n notes: #{notesVal}")
+			scorecard = new Scorecard(playerEmail:player.name, score:scoreVal, 'course.id':@course.id, notes:notesVal, inProgress:false)
+			scorecard.save()
+			#@log scorecard
+			scorecard.bind "update", ->
+				#console.log 'update triggered'
+				button.attr('disabled', 'disabled').text('done')
+				inputScore.attr('disabled', 'disabled')
+				inputNotes.attr('disabled', 'disabled')
+				@unbind "update"
 	
 	resetCourse: (courseObj)->
-		@course = courseObj
-		if confirm('abandon current game and unsaved scores?')
+		change = true
+		if @course
+			change = confirm('are you sure you want to abandon current course?')
+			if confirm 'would you like to reset everyones scores?'
+				@resetPlayerScores()
+		if change
+			@course = courseObj
 			@html ''
 			@render()
+			
+	resetPlayerScores: ->
+		for player in Player.all()
+			player.scores = {}
+			player.save()
 		
 	addPlayer: (e)->
 		e.preventDefault()
@@ -107,6 +130,11 @@ class Scorecards extends Spine.Controller
 	removePlayer: (e)->
 		e.preventDefault()
 		@log 'remove time'
+		if confirm 'ya sure?'
+			playerId = $(e.target).parent().parent().data('player')
+			player = Player.find(playerId)
+			player.destroy()
+		
 
 module.exports = Scorecards
 
