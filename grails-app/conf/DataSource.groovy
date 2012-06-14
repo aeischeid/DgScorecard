@@ -28,7 +28,7 @@ environments {
             dbCreate = "update"
             url = "jdbc:h2:prodDb;MVCC=TRUE"
             pooled = true
-            properties {
+            /*properties {
                maxActive = -1
                minEvictableIdleTimeMillis=1800000
                timeBetweenEvictionRunsMillis=1800000
@@ -36,8 +36,7 @@ environments {
                testOnBorrow=true
                testWhileIdle=true
                testOnReturn=true
-               validationQuery="SELECT 1"
-            }
+            }*/
         }
     }
 }

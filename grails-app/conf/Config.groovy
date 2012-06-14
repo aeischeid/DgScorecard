@@ -66,6 +66,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
+        grails.dbconsole.enabled = true
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
