@@ -1,0 +1,28 @@
+body {
+  width: 100%;
+  font-family: Arial;
+}
+table {
+  width: 100%;
+  font-size: 12px;
+  table-layout: fixed;
+}
+thead {
+  background-color: #b2b2b2;
+}
+tbody {
+  background-color: #f2f2f2;
+}
+tr>td:first-child,
+tr>th:first-child {
+  width: 15%;
+}
+tr>td {
+  text-align: center;
+}
+tr>td:first-child {
+  text-align: left;
+}
+table a {
+  text-decoration: none;
+}
