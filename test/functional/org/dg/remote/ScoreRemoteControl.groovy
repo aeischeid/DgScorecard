@@ -2,14 +2,14 @@ package org.dg.remote
 
 import grails.plugin.remotecontrol.RemoteControl
 import org.dg.Score
-import org.dg.User
+import org.dg.AppUser
 
 class ScoreRemoteControl {
     RemoteControl remote = new RemoteControl()
 
     List<Score> findScoresForPlayer(String username) {
         remote {
-            User player = User.findByUsername(username)
+            AppUser player = AppUser.findByUsername(username)
 
             if (player) {
                 Score.findAllByPlayer(player)
@@ -21,7 +21,7 @@ class ScoreRemoteControl {
 
     Score findScoreForPlayer(String username, String notes) {
         remote {
-            User player = User.findByUsername(username)
+            AppUser player = AppUser.findByUsername(username)
 
             if (player) {
                 Score.findByPlayerAndNotes(player, notes)

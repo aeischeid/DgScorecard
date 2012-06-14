@@ -1,14 +1,14 @@
 package org.dg.remote
 
 import grails.plugin.remotecontrol.RemoteControl
-import org.dg.User
+import org.dg.AppUser
 
 class UserRemoteControl {
     RemoteControl remote = new RemoteControl()
 
-    User findUser(String username) {
+    AppUser findUser(String username) {
         remote {
-            User.findByUsername(username)
+            AppUser.findByUsername(username)
         }
     }
 }

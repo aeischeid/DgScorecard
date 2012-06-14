@@ -5,9 +5,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.savedrequest.DefaultSavedRequest
 
-import org.dg.User
 import org.dg.Role
 import org.dg.UserRole
+import org.dg.AppUser
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -153,7 +153,7 @@ class OpenIdController {
             def config = SpringSecurityUtils.securityConfig
 
             password = springSecurityService.encodePassword(password)
-            def user = new User(username: username, password: password, enabled: true)
+            def user = new AppUser(username: username, password: password, enabled: true)
 
             user.addToOpenIds(url: openId)
 

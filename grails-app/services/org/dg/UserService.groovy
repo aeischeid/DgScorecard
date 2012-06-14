@@ -5,18 +5,18 @@ import org.apache.commons.lang.RandomStringUtils
 class UserService {
     def springSecurityService
 
-    User getCurrentUser() {
+    AppUser getCurrentUser() {
         springSecurityService.currentUser
     }
 
-    List<User> search(String query) {
-        List<User> users = []
+    List<AppUser> search(String query) {
+        List<AppUser> users = []
         if (query) {
             query.toLowerCase()
 
             query = "%${query}%"
 
-            users = User.createCriteria().list {
+            users = AppUser.createCriteria().list {
                 or {
                     ilike('email', query)
                     ilike('username', query)
@@ -27,8 +27,8 @@ class UserService {
         return users
     }
 
-    User createInactiveUser(String email) {
-        User user = new User(
+    AppUser createInactiveUser(String email) {
+        AppUser user = new AppUser(
                 email: email,
                 enabled: false,
                 password: RandomStringUtils.randomAlphanumeric(8),

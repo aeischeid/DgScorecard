@@ -1,6 +1,6 @@
 package org.dg
 
-class User implements Serializable {
+class AppUser implements Serializable {
     private static final long serialVersionUID = 3L
 
     transient springSecurityService

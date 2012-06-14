@@ -1,4 +1,4 @@
-<%@ page import="org.dg.Score" %>
+<%@ page import="org.dg.AppUser; org.dg.Score" %>
 
 
 
@@ -39,7 +39,7 @@
 		<g:message code="score.player.label" default="Player" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="player" name="player.id" from="${org.dg.User.list()}" optionKey="id" required="" value="${scoreInstance?.player?.id}" class="many-to-one"/>
+	<g:select id="player" name="player.id" from="${AppUser.list()}" optionKey="id" required="" value="${scoreInstance?.player?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: scoreInstance, field: 'score', 'error')} required">

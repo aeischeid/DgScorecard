@@ -4,7 +4,6 @@ import grails.converters.JSON
 import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.openid.OpenIdAuthenticationFailureHandler
-import org.dg.User
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.savedrequest.DefaultSavedRequest
@@ -12,6 +11,7 @@ import org.springframework.security.web.savedrequest.DefaultSavedRequest
 import javax.servlet.http.HttpServletResponse
 
 import org.springframework.security.authentication.*
+import org.dg.AppUser
 
 class LoginController {
 
@@ -154,10 +154,10 @@ class LoginController {
 
         def email = openIDService.getEmailAddress(session)
 
-        def user = User.findByEmail(email)
+        def user = AppUser.findByEmail(email)
 
         if (!user) {
-            user = new User(email: email)
+            user = new AppUser(email: email)
         }
 
         user.enabled = true

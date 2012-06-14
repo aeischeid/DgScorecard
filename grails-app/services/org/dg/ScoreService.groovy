@@ -9,7 +9,7 @@ class ScoreService {
         String otherPlayerEmail = params['playerEmail']
 
         if (otherPlayerEmail) {
-            User otherPlayer = User.findByEmail(otherPlayerEmail)
+            AppUser otherPlayer = AppUser.findByEmail(otherPlayerEmail)
 
             if (!otherPlayer) {
                 otherPlayer = userService.createInactiveUser(otherPlayerEmail)
@@ -26,13 +26,13 @@ class ScoreService {
     }
 
     List<Score> findInProgressScores() {
-        User currentUser = userService.currentUser
+        AppUser currentUser = userService.currentUser
 
         Score.findAllByPlayerAndInProgress(currentUser, true)
     }
 
     List<Score> findScoresForCurrentUser() {
-        User currentUser = userService.currentUser
+        AppUser currentUser = userService.currentUser
 
         Score.findAllByPlayer(currentUser)
     }

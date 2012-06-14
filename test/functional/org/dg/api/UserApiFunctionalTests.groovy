@@ -1,13 +1,14 @@
 package org.dg.api
 
-import org.dg.User
+import org.dg.AppUser
 import org.dg.remote.UserRemoteControl
+import org.dg.AppUser
 
 class UserApiFunctionalTests extends JsonRestApiFunctionalTestCase {
     UserRemoteControl userRemoteControl = new UserRemoteControl()
 
     void testShouldGetUserInfo() {
-        User user1 = userRemoteControl.findUser('user1')
+        AppUser user1 = userRemoteControl.findUser('user1')
 
         doJsonGet("/api/user/info")
 
@@ -21,7 +22,7 @@ class UserApiFunctionalTests extends JsonRestApiFunctionalTestCase {
     }
 
     void testShouldSearchForUserByUsername() {
-        User user = userRemoteControl.findUser('user1')
+        AppUser user = userRemoteControl.findUser('user1')
 
         doJsonGet("/api/user/search?query=${user.username}")
 

@@ -14,7 +14,7 @@ class Score implements Serializable {
     String notes
     Integer score
     
-    static belongsTo = [player:User, course:Course]
+    static belongsTo = [player:AppUser, course:Course]
 
     static constraints = {
         notes nullable:true

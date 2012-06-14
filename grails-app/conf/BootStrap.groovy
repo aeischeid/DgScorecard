@@ -2,16 +2,16 @@ import grails.converters.JSON
 import grails.plugin.heroku.PostgresqlServiceInfo
 import org.dg.Course
 import org.dg.Score
-import org.dg.User
+import org.dg.AppUser
 
 class BootStrap {
 
     def init = { servletContext ->
-        boolean emptyDatabase = !User.count()
+        boolean emptyDatabase = AppUser.count() == 0
 
         if (emptyDatabase) {
-            User user1 = new User(username: "user1", password: "pass1", email: "user1@test.com", enabled: true).save()
-            User user2 = new User(username: "user2", password: "pass1", email: "user2@test.com", enabled: true).save()
+            AppUser user1 = new AppUser(username: "user1", password: "pass1", email: "user1@test.com", enabled: true).save()
+            AppUser user2 = new AppUser(username: "user2", password: "pass1", email: "user2@test.com", enabled: true).save()
 
             Course course1 = new Course(name: "Course 1", holes: 18, par: 54).save(failOnError: true)
 
@@ -22,7 +22,7 @@ class BootStrap {
             Score user2Course1Score = new Score(score: 56, course: course1, player: user2, notes: "user2Course1Score").save(failOnError: true)
         }
 
-        JSON.registerObjectMarshaller(User) { User user ->
+        JSON.registerObjectMarshaller(AppUser) { AppUser user ->
             return [
                     email    : user.email,
                     id       : user.id,
