@@ -62,10 +62,15 @@ class Scorecards extends Spine.Controller
 		playerId = cell.parent().data('player')
 		player = Player.find(playerId)
 		#@log("enter a score for hole number:" + cell.data('holenum'))
-		holeScore = prompt("score", '0')
+		holeScore = prompt("score ('bird' = -1, 'bog'=1)", '0')
 		if isNaN(holeScore)
-			alert "non-number entered, setting to 0 (par)"
-			holeScore = 0
+			if holeScore is 'bird'
+				holeScore = -1
+			else if holeScore is 'bog'
+				holeScore = 1
+			else 
+				alert "non-number entered, setting to 0 (par)"
+				holeScore = 0
 		cell.html holeScore
 		player.scores[holeNum] = parseInt(holeScore, 10)
 		player.save()
