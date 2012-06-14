@@ -63,6 +63,9 @@ class Scorecards extends Spine.Controller
 		player = Player.find(playerId)
 		#@log("enter a score for hole number:" + cell.data('holenum'))
 		holeScore = prompt("score", '0')
+		if isNaN(holeScore)
+			alert "non-number entered, setting to 0 (par)"
+			holeScore = 0
 		cell.html holeScore
 		player.scores[holeNum] = parseInt(holeScore, 10)
 		player.save()
@@ -116,7 +119,9 @@ class Scorecards extends Spine.Controller
 		e.preventDefault()
 		newPlayer = new Player(name:prompt('google id', '@gmail.com'), scores:{})
 		newPlayer.save()
-		#need to trigger a re-render w/out losing all scores...
+		#need to trigger a re-render w/out losing all scores... but they are saved for each player obj
+		@html ''
+		@render() # not most efficient approach...
 		
 	editPlayer: (e)->
 		e.preventDefault()
@@ -126,6 +131,8 @@ class Scorecards extends Spine.Controller
 		player.name = prompt('google id', player.name)
 		player.save()
 		#@log player
+		@html ''
+		@render() # not most efficient approach...
 		
 	removePlayer: (e)->
 		e.preventDefault()
@@ -134,7 +141,8 @@ class Scorecards extends Spine.Controller
 			playerId = $(e.target).parent().parent().data('player')
 			player = Player.find(playerId)
 			player.destroy()
-		
+		@html ''
+		@render() # not most efficient approach...
 
 module.exports = Scorecards
 
