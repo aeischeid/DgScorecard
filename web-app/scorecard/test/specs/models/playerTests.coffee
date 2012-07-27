@@ -1,6 +1,6 @@
 
 describe 'Player', ->
-  Player = require('models/player')
+  Player = require('models/playerTests')
 
   it 'can noop', ->
     

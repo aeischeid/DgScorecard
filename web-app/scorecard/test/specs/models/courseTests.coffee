@@ -1,6 +1,6 @@
 
 describe 'Course', ->
-  Course = require('models/course')
+  Course = require('models/courseTests')
 
   it 'can noop', ->
     

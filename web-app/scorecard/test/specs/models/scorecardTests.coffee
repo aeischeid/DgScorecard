@@ -1,6 +1,6 @@
 
 describe 'Scorecard', ->
-  Scorecard = require('models/scorecard')
+  Scorecard = require('models/scorecardTests')
 
   it 'can noop', ->
     

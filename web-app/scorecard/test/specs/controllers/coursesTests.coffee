@@ -1,6 +1,6 @@
 
 describe 'Courses', ->
-  Course = require('controllers/courses')
+  Course = require('controllers/coursesTests')
   
   it 'can noop', ->
     
