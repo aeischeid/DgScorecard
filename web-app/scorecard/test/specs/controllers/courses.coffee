@@ -1,4 +1,3 @@
-require = window.require
 
 describe 'Courses', ->
   Course = require('controllers/courses')

@@ -1,4 +1,3 @@
-require = window.require
 
 describe 'Player', ->
   Player = require('models/player')
