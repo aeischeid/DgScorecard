@@ -2,7 +2,7 @@
   "name": "scorecard",
   "version": "0.0.1",
   "dependencies": {
-    "hem": "git+https://github.com/matthewlehner/hem.git",
+    "hem": "git+https://github.com/cengebretson/hem",
     "es5-shimify": "~0.0.1",
     "json2ify": "~0.0.1",
     "jqueryify": "~0.0.1",
