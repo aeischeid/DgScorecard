@@ -1,12 +1,14 @@
+require     = window.require
+App         = require "../index"
+#Player      = require '../models/player'
+Scorecards  = require '../controllers/scorecards'
 
-describe 'Scorecards', ->
-  ScorecardsTests = require 'controllers/scorecardsTests'
-  Player = require '../app/models/player'
-  Scorecard = require '../app/controllers/scorecards'
+describe 'ScorecardsTests', ->
+  #ScorecardsTests = require 'controllers/scorecardsTests'
   #new Player(name:'bob', scores:{})
-  
+  #console.log Player
+
   it 'CanCalcScoreTally', ->
-    #player = new Player()
     player =
       scores:
         '1':3
@@ -14,20 +16,8 @@ describe 'Scorecards', ->
         '3':-1
         '4':0
         '5':-1
-    #player.scores['1'] = 2
-    #player.scores['2'] = 3
-    #player.scores['3'] = -1
-    #player.scores['4'] = 0
-    #player.scores['5'] = -1
-    console.log 'Player', Player
-    console.log 'Scorecard', Scorecard
-    console.log 'ScorecardsTests', ScorecardsTests
-    
-    scorecard = ScoreMain.create()
-    expect( scorecard.calcScoreTally(player) ).toEqual 3
+    scorecards = new Scorecards()
+    expect( scorecards.calcScoreTally(player) ).toEqual 3
 
   it 'can add', ->
     expect(1 + 1).toBe(2)
-
- 
-

@@ -9,13 +9,13 @@ class Scorecards extends Spine.Controller
 		'click #addPlayer'   :'addPlayer'
 		'click .editPlayer'  :'editPlayer'
 		'click .removePlayer':'removePlayer'
-	
+
 	constructor: ->
 		super
 		Player.fetch()
 		Spine.bind 'changeCourse', (courseObj) =>
 			@resetCourse(courseObj)
-		
+
 	render: ->
 		#@html require('views/card/card')(@course)
 		@log @course
@@ -28,7 +28,7 @@ class Scorecards extends Spine.Controller
 		if @course.holes > 18
 			@renderNine(3)
 		@renderTally()
-		
+
 	renderNine: (n)->
 		switch n
 			when 1
@@ -42,19 +42,19 @@ class Scorecards extends Spine.Controller
 				endHole = 27
 		@el.append require('views/card/card')({nine:n, startHole:startHole, endHole:endHole})
 		@renderRow(n, startHole, endHole)
-		
+
 	renderRow: (nine, startHole, endHole)->
 		for player in Player.all()
 			player.startHole = startHole
 			player.endHole = endHole
 			$('tbody[data-nine="'+nine+'"]').append require('views/card/playerRow')(player)
-	
+
 	renderTally: ->
 		@el.append require('views/card/tally')
 		for player in Player.all()
 			$('#tallies tbody').append require('views/card/tallyRow')(player)
 			@calcScoreTally(player)
-		
+
 	enterHoleScore: (e)->
 		cell = $(e.target)
 		holeNum = cell.data('hole')
@@ -68,21 +68,22 @@ class Scorecards extends Spine.Controller
 				holeScore = -1
 			else if holeScore is 'bog'
 				holeScore = 1
-			else 
+			else
 				alert "non-number entered, setting to 0 (par)"
 				holeScore = 0
 		cell.html holeScore
 		player.scores[holeNum] = parseInt(holeScore, 10)
 		player.save()
 		@calcScoreTally(player)
-		
+
 	calcScoreTally: (player)->
 		tally = 0
 		for hole,holeScore of player.scores
 			tally += holeScore
 		#use jquery to select tally row, find the score input, and inject tally as value
 		@$("tr[data-player='#{player.id}'] input[name='score']").val(tally)
-		
+		return tally
+
 	submitScore: (e)->
 		e.preventDefault()
 		button = $(e.target)
@@ -103,7 +104,7 @@ class Scorecards extends Spine.Controller
 				inputScore.attr('disabled', 'disabled')
 				inputNotes.attr('disabled', 'disabled')
 				@unbind "update"
-	
+
 	resetCourse: (courseObj)->
 		change = true
 		if @course
@@ -114,12 +115,12 @@ class Scorecards extends Spine.Controller
 			@course = courseObj
 			@html ''
 			@render()
-			
+
 	resetPlayerScores: ->
 		for player in Player.all()
 			player.scores = {}
 			player.save()
-		
+
 	addPlayer: (e)->
 		e.preventDefault()
 		newPlayer = new Player(name:prompt('google id', '@gmail.com'), scores:{})
@@ -127,7 +128,7 @@ class Scorecards extends Spine.Controller
 		#need to trigger a re-render w/out losing all scores... but they are saved for each player obj
 		@html ''
 		@render() # not most efficient approach...
-		
+
 	editPlayer: (e)->
 		e.preventDefault()
 		#@log $(e.target).parent().parent()
@@ -138,7 +139,7 @@ class Scorecards extends Spine.Controller
 		#@log player
 		@html ''
 		@render() # not most efficient approach...
-		
+
 	removePlayer: (e)->
 		e.preventDefault()
 		@log 'remove time'
@@ -150,4 +151,3 @@ class Scorecards extends Spine.Controller
 		@render() # not most efficient approach...
 
 module.exports = Scorecards
-
