@@ -20,7 +20,7 @@ describe 'ScorecardsTests', ->
     expect( scorecards.calcScoreTally(player) ).toEqual 3
 
   it 'will fetch players when scorecard created', ->
-    spyOn(Player, 'fetch').andCallThrough()
+    spyOn(Player, 'fetch')
     scorecards = new Scorecards()
     expect(Player.fetch).toHaveBeenCalled()
 
