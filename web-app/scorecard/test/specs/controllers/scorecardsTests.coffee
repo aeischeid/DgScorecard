@@ -1,6 +1,6 @@
 require     = window.require
 App         = require "../index"
-#Player      = require '../models/player'
+Player      = require '../models/player'
 Scorecards  = require '../controllers/scorecards'
 
 describe 'ScorecardsTests', ->
@@ -19,5 +19,25 @@ describe 'ScorecardsTests', ->
     scorecards = new Scorecards()
     expect( scorecards.calcScoreTally(player) ).toEqual 3
 
-  it 'can add', ->
-    expect(1 + 1).toBe(2)
+  it 'will fetch players when scorecard created', ->
+    spyOn(Player, 'fetch').andCallThrough()
+    scorecards = new Scorecards()
+    expect(Player.fetch).toHaveBeenCalled()
+
+  it 'will render nine when course is reset', ->
+    scorecards = new Scorecards()
+    spyOn(scorecards, 'renderNine').andCallThrough()
+    course =
+      holes:18
+      name:'testCourse'
+    scorecards.resetCourse(course)
+    expect(scorecards.renderNine).toHaveBeenCalled()
+
+  it 'will render nine twice when course is 18 holes', ->
+    scorecards = new Scorecards()
+    spyOn(scorecards, 'renderNine').andCallThrough()
+    course =
+      holes:18
+      name:'testCourse'
+    scorecards.resetCourse(course)
+    expect(scorecards.renderNine.calls.length).toEqual(2)
