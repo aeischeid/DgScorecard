@@ -1,4 +1,5 @@
 Spine = require('spine')
+Ajax  = require('spine/lib/ajax')
 
 class Course extends Spine.Model
 	@configure 'Course', 'name', 'city', 'state', 'zip', 'holes', 'par'
@@ -7,7 +8,7 @@ class Course extends Spine.Model
 	@url: '../api/course'
 	
 	#@filter: (query)->
-		#@select (c) -> 
+		#@select (c) ->
 			#c.zip.indexOf(query) is not -1
 
 module.exports = Course
