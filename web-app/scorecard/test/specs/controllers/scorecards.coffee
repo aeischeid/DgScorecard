@@ -1,11 +1,20 @@
+require = window.require
 
 describe 'Scorecards', ->
   ScoreMain = require('controllers/scorecards')
-  
-  it 'can noop', ->
+  Player = require('models/player')
 
-  it 'can add', ->
-    expect(1 + 1).toBe(2)
+  beforeEach ->
+    Player.create( name: 'Fred' )
+    Player.create( name: 'Bob'  )
 
- 
+  afterEach ->
+    Player.deleteAll()
+
+  it 'Return number of Players', ->
+    expect(Player.count()).toBe(2)
+
+  it 'Remove All Players', ->
+    Player.deleteAll()
+    expect(Player.count()).toBe(0)
 
